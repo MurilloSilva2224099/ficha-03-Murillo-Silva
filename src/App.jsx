@@ -11,22 +11,32 @@ const cards = [
 
 function App() {
   const [filter, setFilter] = useState("all");
-  const visibleCards = cards.filter((card) => {
-  if (filter === "creatures") {
-    return card.type === "Criatura";
-  }
+  const [search, setSearch] = useState("");
+  
+  const visibleCards = cards
+  .filter((card) => {
+    if (filter === "creatures") {
+      return card.type === "Criatura";
+    }
 
-  if (filter === "spells") {
     if (filter === "spells") {
-  return card.type === "Feitiço";
-}
-  }
+      return card.type === "Feitiço";
+    }
 
-  return true;
-});
+    return true;
+  })
+  .filter((card) =>
+    card.name.toLowerCase().includes(search.toLowerCase())
+  );
   return (
     <main>
       <h1>A minha coleção</h1>
+      <input
+  type="text"
+  value={search}
+  onChange={(e) => setSearch(e.target.value)}
+  placeholder="Pesquisar carta..."
+/>
       <button onClick={() => setFilter("all")}>
   Todas
 </button>
