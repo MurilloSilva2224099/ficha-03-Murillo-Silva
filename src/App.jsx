@@ -1,3 +1,4 @@
+import { useState } from "react";
 import Card from "./Card";
 
 const cards = [
@@ -9,14 +10,39 @@ const cards = [
 ];
 
 function App() {
+  const [filter, setFilter] = useState("all");
+  const visibleCards = cards.filter((card) => {
+  if (filter === "creatures") {
+    return card.type === "Criatura";
+  }
+
+  if (filter === "spells") {
+    if (filter === "spells") {
+  return card.type === "Feitiço";
+}
+  }
+
+  return true;
+});
   return (
     <main>
       <h1>A minha coleção</h1>
-      <h2>Tenho {cards.length} cartas</h2>
+      <button onClick={() => setFilter("all")}>
+  Todas
+</button>
 
-      {cards.map((card) => (
-        <Card key={card.name} card={card} />
-      ))}
+<button onClick={() => setFilter("creatures")}>
+  Só criaturas
+</button>
+
+<button onClick={() => setFilter("spells")}>
+  Só feitiços
+</button>
+
+     <h2>Tenho {visibleCards.length} de {cards.length} cartas à vista</h2>
+    {visibleCards.map((card) => (
+  <Card key={card.name} card={card} />
+))}
     </main>
   );
 }
