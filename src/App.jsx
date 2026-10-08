@@ -12,6 +12,7 @@ const cards = [
 function App() {
   const [filter, setFilter] = useState("all");
   const [search, setSearch] = useState("");
+  const [randomCard, setRandomCard] = useState(null);
   
   const visibleCards = cards
   .filter((card) => {
@@ -48,6 +49,15 @@ function App() {
 <button onClick={() => setFilter("spells")}>
   Só feitiços
 </button>
+<button
+  onClick={() => {
+    const randomIndex = Math.floor(Math.random() * cards.length);
+    setRandomCard(cards[randomIndex]);
+  }}
+>
+  Carta à sorte
+</button>
+{randomCard && <Card card={randomCard} />}
 
      <h2>Tenho {visibleCards.length} de {cards.length} cartas à vista</h2>
     {visibleCards.map((card) => (
